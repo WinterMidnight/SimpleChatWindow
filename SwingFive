@@ -1,0 +1,99 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+
+class SwingFive {
+    public static void main(String args[]) {
+
+        // Creating the Frame
+        JFrame frame = new JFrame("Welcome to Chat");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+
+        // Set custom colors
+        Color backgroundColor = new Color(0, 0, 0); // Black
+        Color accentColor = new Color(173, 216, 230); // Light blue
+        Color textColor = new Color(255, 255, 255); // White
+        Color messageFieldColor = new Color(204, 153, 255); // Light purple
+        Color messageFieldTextColor = new Color(0, 0, 0); // Black
+        Color sendButtonColor = new Color(0, 128, 0); // Green
+        Color sendButtonTextColor = Color.WHITE;
+
+        // Creating the MenuBar and adding components
+        JMenuBar mb = new JMenuBar();
+        mb.setBackground(accentColor);
+        JMenu m1 = new JMenu("Create");
+        JMenu m2 = new JMenu("Edit");
+        JMenu m3 = new JMenu("Exit");
+        m1.setForeground(Color.BLACK);
+        m2.setForeground(Color.BLACK);
+        m3.setForeground(Color.BLACK);
+        mb.add(m1);
+        mb.add(m2);
+        mb.add(m3);
+        JMenuItem m11 = new JMenuItem("Open");
+        JMenuItem m22 = new JMenuItem("Save");
+        
+        m2.add(m11);
+        m2.add(m22);
+
+        // Creating the panel at bottom and adding components
+        JPanel panel = new JPanel();
+        panel.setBackground(backgroundColor);
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JTextField messageField = new JTextField(20);
+        messageField.setText("Type your message here");
+        messageField.setForeground(messageFieldTextColor);
+        messageField.setBackground(messageFieldColor);
+        
+        JButton sendButton = new JButton("Send");
+        sendButton.setBackground(sendButtonColor);
+        sendButton.setForeground(sendButtonTextColor);
+        panel.add(messageField);
+        panel.add(sendButton);
+
+        // Text Area at the Center
+        JTextArea ta = new JTextArea();
+        ta.setBackground(backgroundColor);
+        ta.setForeground(textColor);
+        JScrollPane scrollPane = new JScrollPane(ta);
+
+        // Focus listener for message field (placeholder text)
+        messageField.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (messageField.getText().equals("Type your message here")) {
+                    messageField.setText("");
+                    messageField.setForeground(messageFieldTextColor);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (messageField.getText().isEmpty()) {
+                    messageField.setForeground(messageFieldTextColor);
+                    messageField.setText("Type your message here");
+                }
+            }
+        });
+
+        frame.getContentPane().setBackground(backgroundColor);
+        frame.getContentPane().add(BorderLayout.SOUTH, panel);
+        frame.getContentPane().add(BorderLayout.NORTH, mb);
+        frame.getContentPane().add(BorderLayout.CENTER, scrollPane);
+
+        frame.setVisible(true);
+    }
+}
